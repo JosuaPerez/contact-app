@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('People') }}
+            {{ __('Businesses') }}
         </h2>
     </x-slot>
 
@@ -11,29 +11,29 @@
                 <div class="p-6 text-gray-900">
 
                     <div class="flex items-center justify-end">
-                        <a class="bg-blue-600  py-2 px-3 rounded-full" href="{{route('person.create')}}">Add
-                            Person</a>
+                        <a
+                            class="bg-blue-600 py-2 px-3 rounded-full"
+                            href="{{route('business.create')}}"
+                        >
+                            Add Business
+                        </a>
                     </div>
 
                     <table class="table-fixed border-separate border-spacing-6">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Business</th>
+                            <th>Business Name</th>
+                            <th>Contact Email</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($people as $person)
+                        @foreach ($businesses as $business)
                             <tr>
-                                <td>{{$person->firstname}} {{$person->lastname}}</td>
-                                <td>{{$person->email}}</td>
-                                <td>{{$person->phone}}</td>
-                                <td>{{$person->business?->business_name}}</td>
+                                <td>{{$business->business_name}}</td>
+                                <td>{{$business->contact_email}}</td>
                                 <td>
-                                    <a href="{{route('person.edit', $person->id)}}">
+                                    <a href="{{route('business.edit', $business->id)}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
