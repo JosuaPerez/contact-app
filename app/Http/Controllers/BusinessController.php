@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BusinessRequest;
 use App\Models\Business;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,17 +29,9 @@ class BusinessController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(BusinessRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'business_name' => 'required',
-            'contact_email' => 'nullable|email'
-        ]);
-
-        $business = new Business;
-        $business->business_name = $request->input('business_name');
-        $business->contact_email = $request->input('contact_email');
-        $business->save();
+        $business = Business::create($request->validated());
 
         return redirect(route('business.index'));
     }
@@ -62,17 +55,9 @@ class BusinessController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Business $business): RedirectResponse
+    public function update(BusinessRequest $request, Business $business): RedirectResponse
     {
-        $validated = $request->validate([
-            'business_name' => 'required',
-            'contact_email' => 'nullable|email'
-        ]);
-
-        $business = new Business;
-        $business->business_name = $request->input('business_name');
-        $business->contact_email = $request->input('contact_email');
-        $business->save();
+        $business->update($request->validated());
 
         return redirect(route('business.index'));
     }

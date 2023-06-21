@@ -16,6 +16,12 @@
                         @csrf
                         @method('PUT')
 
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <p class="text-sm text-red-500">{{ $error }}</p>
+                            @endforeach
+                        @endif
+
                         <div class="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6">
                             <div class="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6">
                                 <span class="sm:col-span-3">
@@ -28,7 +34,7 @@
                                         value="{{old('business_name', $business->business_name)}}">
                                 </span>
 
-                                <span class="sm:col-span-3">
+                                <span class="mt-3 sm:col-span-3">
                                     <label class="block" for="contact_email">contact_email</label>
                                     <input
                                         class="block w-full"

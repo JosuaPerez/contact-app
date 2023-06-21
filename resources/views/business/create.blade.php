@@ -15,6 +15,12 @@
                     <form action="{{ route('business.store') }}" method="POST">
                         @csrf
 
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <p class="text-sm text-red-500">{{ $error }}</p>
+                            @endforeach
+                        @endif
+
                         <div class="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6">
                             <span class="sm:col-span-3">
                                 <label class="py-4 block" for="firstname">Business Name</label>
