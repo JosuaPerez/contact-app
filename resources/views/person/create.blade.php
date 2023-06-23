@@ -49,6 +49,17 @@
                             </span>
 
                             <span class="sm:col-span-3">
+                                <label class="py-4 block" for="phone">Phone</label>
+                                <input
+                                    class="block w-full"
+                                    type="text"
+                                    name="phone"
+                                    id="phone"
+                                    value="{{old('phone')}}"
+                                >
+                            </span>
+
+                            <span class="sm:col-span-3">
                                 <label class="py-4 block" for="phone">Business</label>
                                 <select class="block w-full" name="business_id" id="business_id">
                                     <option value="" selected>No Business</option>

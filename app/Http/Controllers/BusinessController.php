@@ -39,9 +39,9 @@ class BusinessController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Business $business)
+    public function show(Business $business): View
     {
-        //
+        return view('business.detail')->with('business', $business);
     }
 
     /**

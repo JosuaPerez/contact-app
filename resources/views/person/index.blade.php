@@ -28,10 +28,14 @@
                         <tbody>
                         @foreach ($people as $person)
                             <tr>
-                                <td>{{$person->firstname}} {{$person->lastname}}</td>
+                                <td>
+                                    <a href="{{ route('person.show', $person->id) }}">
+                                        {{$person->firstname}} {{$person->lastname}}
+                                    </a>
+                                </td>
                                 <td>{{$person->email}}</td>
                                 <td>{{$person->phone}}</td>
-                                <td>{{$person->business?->business_name}}</td>
+                                <td class="{{($person->business?->deleted_at)?'italic' : 'non-italic'}}">{{$person->business?->business_name}}</td>
                                 <td>
                                     <a href="{{route('person.edit', $person->id)}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
