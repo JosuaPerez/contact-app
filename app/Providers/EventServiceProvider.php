@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Task::observe(TaskObserver::class);
+//        Task::observe(TaskObserver::class);
     }
 
     /**

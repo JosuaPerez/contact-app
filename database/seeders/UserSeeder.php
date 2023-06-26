@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create(
+        \App\Models\User::factory()->createQuietly(
             [
                 'name' => 'Benjamin',
                 'email' => 'test@test.com',

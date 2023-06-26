@@ -24,6 +24,7 @@ class PersonFactory extends Factory
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
+            'birthday' => fake()->date('Y-m-d'),
             'phone' => fake()->phoneNumber(),
             'business_id' => (fake()->boolean(50) ? fake()->randomElement($businesses) : NULL)
         ];
