@@ -61,7 +61,7 @@
                             </span>
 
                             <span class="sm:col-span-3">
-                                <label class="py-4 block" for="phone">Business</label>
+                                <label class="py-4 block" for="business">Business</label>
                                 <select class="block w-full" name="business_id" id="business_id">
                                     <option value="" @selected('' == old('$business_id', $person->business_id))>No Business</option>
                                     @foreach($businesses as $business)
@@ -71,6 +71,28 @@
                                     @endforeach
                                 </select>
                             </span>
+                        </div>
+
+                        <h4 class="font-semibold pt-5">Tags</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-6">
+                            @foreach($tag as $tags)
+                                <span class="sm:col-span-2">
+                                    <input
+                                        type="checkbox"
+                                        name="tags[]"
+                                        id="tag{{ $tags->id }}"
+                                        value="{{ $tags->id }}"
+                                        @checked(
+                                            in_array(
+                                                $tags->tag_name,
+                                                $person->tags->pluck('tag_name')
+                                                ->toArray()
+                                            )
+                                        )
+                                    >
+                                    <label for="tag{{ $tags->id }}">{{ $tags->tag_name }}</label>
+                                </span>
+                            @endforeach
                         </div>
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">

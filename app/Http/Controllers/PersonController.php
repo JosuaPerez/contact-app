@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Business;
 use App\Models\Person;
+use App\Models\Tag;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class PersonController extends Controller
@@ -16,7 +19,7 @@ class PersonController extends Controller
     public function index(): View
     {
         return view('person.index')
-            ->with('people', Person::with('business')->get());
+            ->with('people', Person::with('business')->paginate(10));
     }
 
     /**
@@ -25,13 +28,16 @@ class PersonController extends Controller
     public function create(): View
     {
         return view('person.create')
-            ->with('businesses', Business::all());
+            ->with([
+                'businesses', Business::all(),
+                'tags' => Tag::all()
+            ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Person $person): RedirectResponse
     {
         $validated = $request->validate([
             'firstname' => 'required',
@@ -46,6 +52,8 @@ class PersonController extends Controller
         $person->phone = $request->input('phone');
         $person->business_id = $request->input('business_id');
         $person->save();
+
+        $person->tags()->sync($request->input('tags'));
 
         return redirect(route('person.index'));
     }
@@ -66,7 +74,8 @@ class PersonController extends Controller
         return view('person.edit')
             ->with([
                 'person' => $person,
-                'businesses' => Business::all()
+                'businesses' => Business::all(),
+                'tag' => Tag::all()
             ]);
     }
 
@@ -88,13 +97,15 @@ class PersonController extends Controller
         $person->business_id = $request->input('business_id');
         $person->save();
 
-        return redirect(route('person.index'));
+        $person->tags()->sync($request->input('tags'));
+
+        return redirect()->route('person.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Person $person)
+    public function destroy(Person $person): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $person->delete();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BusinessRequest;
 use App\Models\Business;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,7 +16,10 @@ class BusinessController extends Controller
      */
     public function index(): View
     {
-        return view('business.index')->with('businesses', Business::all());
+        return view('business.index')->with([
+            'businesses' => Business::withCount('people')->paginate(10),
+            'tag' => Tag::all()
+        ]);
     }
 
     /**
@@ -29,9 +33,11 @@ class BusinessController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BusinessRequest $request): RedirectResponse
+    public function store(BusinessRequest $request, Business $business): RedirectResponse
     {
         $business = Business::create($request->validated());
+
+        $business->tags()->sync($request->input('tags'));
 
         return redirect(route('business.index'));
     }
@@ -49,7 +55,10 @@ class BusinessController extends Controller
      */
     public function edit(Business $business): View
     {
-        return view('business.edit')->with('business', $business);
+        return view('business.edit')->with([
+            'business' => $business,
+            'tags' => Tag::all(),
+        ]);
     }
 
     /**
@@ -58,6 +67,8 @@ class BusinessController extends Controller
     public function update(BusinessRequest $request, Business $business): RedirectResponse
     {
         $business->update($request->validated());
+
+        $business->tags()->sync($request->input('tags'));
 
         return redirect(route('business.index'));
     }
