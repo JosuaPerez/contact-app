@@ -29,7 +29,7 @@ class PersonController extends Controller
     {
         return view('person.create')
             ->with([
-                'businesses', Business::all(),
+                'businesses' => Business::all(),
                 'tags' => Tag::all()
             ]);
     }

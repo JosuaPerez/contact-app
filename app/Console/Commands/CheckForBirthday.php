@@ -24,10 +24,10 @@ class CheckForBirthday extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-        $people = Person::whereDay('birthday', now()->addDays(3)->format('d'))
-            ->whereMonth('birthday', now()->addDays(3)->format('m'))
-            ->get();
+        $people = Person::whereDay('birthday', '=', now()->addDays(5)->format('d'))
+            ->whereMonth('birthday', '=', now()->addDays(5)->format('m'))
+            ->pluck('firstname');
     }
 }
