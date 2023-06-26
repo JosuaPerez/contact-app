@@ -24,7 +24,8 @@
                         <tr>
                             <th>Business Name</th>
                             <th>Contact Email</th>
-                            <th>Category</th>
+                            <th>Categories</th>
+                            <th>Tags</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -40,6 +41,11 @@
                                 <td>
                                     @foreach($business->categories as $cat)
                                         {{ $cat->category_name }}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($business->tags as $tag)
+                                        <span class="text-xs px-1 rounded-full">{{$tag->tag_name}}</span>
                                     @endforeach
                                 </td>
                                 <td>

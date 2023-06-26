@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,16 @@ Route::controller(BusinessController::class)
         Route::get('/{business}/edit', 'edit')->name('.edit');
         Route::put('/{business}/update', 'update')->name('.update');
         Route::delete('/{business}/destroy', 'destroy')->name('.destroy');
+    });
+
+Route::controller(TaskController::class)
+    ->prefix('task')
+    ->name('task')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/', 'index')->name('.index');
+        Route::post('/store', 'store')->name('.store');
+        Route::put('/{task}/complete', 'complete')->name('.complete');
     });
 
 require __DIR__ . '/auth.php';

@@ -22,6 +22,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Business</th>
+                            <th>Tags</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -36,6 +37,11 @@
                                 <td>{{$person->email}}</td>
                                 <td>{{$person->phone}}</td>
                                 <td class="{{($person->business?->deleted_at)?'italic' : 'non-italic'}}">{{$person->business?->business_name}}</td>
+                                <td>
+                                    @foreach($person->tags as $tag)
+                                        <span class="text-xs px-1 rounded-full">{{$tag->tag_name}}</span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{route('person.edit', $person->id)}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
