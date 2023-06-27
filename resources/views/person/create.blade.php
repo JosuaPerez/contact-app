@@ -60,6 +60,17 @@
                             </span>
 
                             <span class="sm:col-span-3">
+                                <label class="py-4 block" for="birthday">Birthday</label>
+                                <input
+                                    class="block w-full"
+                                    type="date"
+                                    name="birthday"
+                                    id="birthday"
+                                    value="{{old('birthday')}}"
+                                >
+                            </span>
+
+                            <span class="sm:col-span-3">
                                 <label class="py-4 block" for="business">Business</label>
                                 <select class="block w-full" name="business_id" id="business_id">
                                     <option value="" selected>No Business</option>
@@ -74,10 +85,10 @@
 
                         <h4 class="font-semibold pt-5">Tags</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-6">
-                            @foreach($tag as $tags)
+                            @foreach($tags as $tag)
                                 <span class="sm:col-span-2">
-                                    <input type="checkbox" name="tags[]" id="tag{{ $tags->id }}" value="{{ $tags->id }}">
-                                    <label for="tag{{ $tags->id }}">{{ $tags->tag_name }}</label>
+                                    <input type="checkbox" name="tags[]" id="tag{{ $tag->id }}" value="{{ $tag->id }}">
+                                    <label for="tag{{ $tag->id }}">{{ $tag->tag_name }}</label>
                                 </span>
                             @endforeach
                         </div>

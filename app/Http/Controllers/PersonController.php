@@ -51,6 +51,7 @@ class PersonController extends Controller
         $person->email = $request->input('email');
         $person->phone = $request->input('phone');
         $person->business_id = $request->input('business_id');
+        $person->birthday = $request->input('birthday');
         $person->save();
 
         $person->tags()->sync($request->input('tags'));
